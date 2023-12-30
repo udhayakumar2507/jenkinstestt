@@ -1,0 +1,28 @@
+pipeline{
+    agent any
+    stages{
+        stage('Download prometheus.tar'){
+            steps{
+                script {
+                    // Clone Prometheus repository
+                    sh 'wget https://github.com/prometheus/prometheus/releases/download/v2.45.2/prometheus-2.45.2.linux-amd64.tar.gz'
+                }
+            }
+        }
+        stage('untar prometheus'){
+            steps{
+                script{
+                    sh 'tar -xvzf prometheus-2.45.2.linux-amd64.tar.gz'
+                }
+            }
+        }
+        stage('Remove tar file') {
+            steps{
+                script{
+                    sh 'rm -rf prometheus-2.45.2.linux-amd64.tar.gz'
+                }
+            }
+
+        }
+    }
+}
